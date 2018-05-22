@@ -4,6 +4,9 @@
 #include <inttypes.h>
 #include <Print.h>
 
+// I2C write option
+#define POLLIN_I2C 1  // the Pollin I2C LCD board has the nibbles switched
+
 // commands
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
@@ -46,6 +49,7 @@
 #define LCD_BACKLIGHT 0x08
 #define LCD_NOBACKLIGHT 0x00
 
+#define Bl B00001000  // Backlight LED bit
 #define En B00000100  // Enable bit
 #define Rw B00000010  // Read/Write bit
 #define Rs B00000001  // Register select bit

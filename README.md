@@ -1,8 +1,10 @@
-# Installation #
-Create a new folder called "LiquidCrystal_I2C" under the folder named "libraries" in your Arduino sketchbook folder.
-Create the folder "libraries" in case it does not exist yet. Place all the files in the "LiquidCrystal_I2C" folder.
+# Installation
+Perform a git clone to create a new folder called "LiquidCrystal_I2C" under the folder 
+named "libraries" in your Arduino sketchbook folder.
 
-# Usage #
+	git clone http://github.com/gebhardm/Arduino-LiquidCrystal-I2C-library LiquidCrystal_I2C
+
+# Usage
 To use the library in your own sketch, select it from *Sketch > Import Library*.
 
 -------------------------------------------------------------------------------------------------------------------

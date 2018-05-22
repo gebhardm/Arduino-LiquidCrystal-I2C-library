@@ -226,7 +226,11 @@ void LiquidCrystal_I2C::write4bits(uint8_t value) {
 
 void LiquidCrystal_I2C::expanderWrite(uint8_t _data){
 	Wire.beginTransmission(_addr);
+#if POLLIN_I2C == 1
+        Wire.write((_data & 0x0F)<<4 | (_data & 0xF0)>>4);
+#else
 	Wire.write((int)(_data) | _backlightval);
+#endif
 	Wire.endTransmission();
 }
 
