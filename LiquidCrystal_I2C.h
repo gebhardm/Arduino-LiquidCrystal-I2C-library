@@ -6,6 +6,11 @@
 
 // I2C write option
 #define POLLIN_I2C 1  // the Pollin I2C LCD board has the nibbles switched
+/* The Pollin LCD-I2C module uses a PCF8574P with following connections
+   towards an attached LCD
+   P0 -> D4 (11), P1 -> D5 (12), P2 -> D6 (13), P3 -> D7 (14)
+   P4 -> RS (4), P5 -> R/W (5), P6 -> EN (6), P7 -> LED Backlight (15)
+   This implies data on low nibble and control on high nibble */
 
 // commands
 #define LCD_CLEARDISPLAY 0x01
