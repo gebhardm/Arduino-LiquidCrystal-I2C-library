@@ -28,7 +28,7 @@ LiquidCrystal_I2C::LiquidCrystal_I2C(uint8_t lcd_addr, uint8_t lcd_cols, uint8_t
 	_cols = lcd_cols;
 	_rows = lcd_rows;
 	_charsize = charsize;
-	_backlightval = LCD_BACKLIGHT;
+	_backlightval = LCD_BL;
 }
 
 void LiquidCrystal_I2C::begin() {
@@ -184,27 +184,27 @@ void LiquidCrystal_I2C::createChar(uint8_t location, uint8_t charmap[]) {
 
 // Turn the (optional) backlight off/on
 void LiquidCrystal_I2C::noBacklight(void) {
-	_backlightval=LCD_NOBACKLIGHT;
+	_backlightval = _backlightval & ~LCD_BL;
 	expanderWrite(0);
 }
 
 void LiquidCrystal_I2C::backlight(void) {
-	_backlightval=LCD_BACKLIGHT;
-	expanderWrite(0);
+	_backlightval = _backlightval | LCD_BL;
+	expanderWrite(LCD_BL);
 }
 bool LiquidCrystal_I2C::getBacklight() {
-  return _backlightval == LCD_BACKLIGHT;
+  return (_backlightval & LCD_BL);
 }
 
 
 /*********** mid level commands, for sending data/cmds */
 
 inline void LiquidCrystal_I2C::command(uint8_t value) {
-	send(value, 0);
+	send(value, LCD_COMMAND);
 }
 
 inline size_t LiquidCrystal_I2C::write(uint8_t value) {
-	send(value, Rs);
+	send(value, LCD_RS);
 	return 1;
 }
 
@@ -236,10 +236,10 @@ void LiquidCrystal_I2C::expanderWrite(uint8_t _data){
 }
 
 void LiquidCrystal_I2C::pulseEnable(uint8_t _data){
-	expanderWrite(_data | En);	// En high
-	delayMicroseconds(10);		// enable pulse must be >450ns
+	expanderWrite(_data | LCD_EN);	// En high
+	delayMicroseconds(5);		// enable pulse must be >450ns
 
-	expanderWrite(_data & ~En);	// En low
+	expanderWrite(_data & ~LCD_EN);	// En low
 	delayMicroseconds(50);		// commands need > 37us to settle
 }
 

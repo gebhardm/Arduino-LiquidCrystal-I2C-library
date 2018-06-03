@@ -5,14 +5,17 @@
 #include <Print.h>
 
 // I2C write option
+#ifndef POLLIN_I2C
 #define POLLIN_I2C 1  // the Pollin I2C LCD board has the nibbles switched
 /* The Pollin LCD-I2C module uses a PCF8574P with following connections
    towards an attached LCD
    P0 -> D4 (11), P1 -> D5 (12), P2 -> D6 (13), P3 -> D7 (14)
    P4 -> RS (4), P5 -> R/W (5), P6 -> EN (6), P7 -> LED Backlight (15)
    This implies data on low nibble and control on high nibble */
+#endif
 
 // commands
+#define LCD_COMMAND 0x00
 #define LCD_CLEARDISPLAY 0x01
 #define LCD_RETURNHOME 0x02
 #define LCD_ENTRYMODESET 0x04
@@ -50,14 +53,11 @@
 #define LCD_5x10DOTS 0x04
 #define LCD_5x8DOTS 0x00
 
-// flags for backlight control
-#define LCD_BACKLIGHT 0x08
-#define LCD_NOBACKLIGHT 0x00
-
-#define Bl B00001000  // Backlight LED bit
-#define En B00000100  // Enable bit
-#define Rw B00000010  // Read/Write bit
-#define Rs B00000001  // Register select bit
+// control flags
+#define LCD_BL B00001000  // Backlight LED bit
+#define LCD_EN B00000100  // Enable bit
+#define LCD_RW B00000010  // Read/Write bit
+#define LCD_RS B00000001  // Register select bit
 
 /**
  * This is the driver for the Liquid Crystal LCD displays that use the I2C bus.
